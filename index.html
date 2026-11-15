@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pizza do Faraó — Cardápio Real</title>
+<meta name="description" content="Pizza do Faraó, Canavieiras-BA. Peça pelo site e pague no Pix com frete grátis.">
+<meta property="og:title" content="Pizza do Faraó — Cardápio Real">
+<meta property="og:description" content="Sabores que só os deuses da era egípcia degustavam! Peça agora.">
+<meta property="og:image" content="logo.webp">
+<link rel="icon" href="icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ouro:#F2C14E; --ouro2:#D99A1E; --ouro3:#8A5A12;
+    --preto:#0B0806; --fundo:#140E09; --card:#1E150D; --linha:rgba(242,193,78,.22);
+    --texto:#F7EEDC; --suave:#C9B79A; --verde:#25D366; --vermelho:#C8281E;
+    --dourado:linear-gradient(180deg,#FFE9A8 0%,#F2C14E 45%,#C98A17 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',sans-serif;background:var(--fundo);color:var(--texto);padding-bottom:96px;
+    background-image:radial-gradient(circle at 50% -10%,rgba(217,154,30,.25),transparent 55%)}
+  button{font-family:inherit;cursor:pointer}
+  a{color:inherit}
+
+  header{text-align:center;padding:26px 16px 18px;position:relative}
+  .logo{width:min(250px,62vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.6))}
+  .slogan{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(15px,4.2vw,19px);margin-top:8px;color:var(--texto);font-style:italic}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linha);background:rgba(242,193,78,.07);
+    padding:6px 12px;border-radius:99px;font-size:12.5px;color:var(--suave)}
+  .chip b{color:var(--ouro);font-weight:600}
+  .ponto{width:8px;height:8px;border-radius:50%;background:var(--suave)}
+  .ponto.on{background:var(--verde);box-shadow:0 0 8px var(--verde)}
+
+  .vantagens{max-width:900px;margin:6px auto 0;padding:0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .vant{border:1px solid var(--linha);border-radius:14px;padding:10px 6px;text-align:center;background:var(--card)}
+  .vant .ic{font-size:20px}
+  .vant .t{font-size:11px;color:var(--suave);line-height:1.25;margin-top:2px}
+  .vant .d{font-family:'Cinzel',serif;font-weight:700;color:var(--ouro);font-size:14px;line-height:1.15}
+
+  .forno{max-width:900px;margin:18px auto 0;padding:0 14px}
+  .forno .moldura{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--linha)}
+  .forno video{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
+  .forno .legenda{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 10px;
+    background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:13px}
+  .forno .legenda b{font-family:'Cinzel',serif;color:var(--ouro);font-size:16px;display:block}
+
+  main{max-width:900px;margin:0 auto;padding:6px 14px}
+  .titulo{text-align:center;margin:28px 0 6px}
+  .titulo h2{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(24px,6vw,32px);
+    background:var(--dourado);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px}
+  .titulo p{font-size:13px;color:var(--suave);margin-top:4px}
+  .dica{margin:12px auto 16px;max-width:560px;text-align:center;font-size:13px;color:var(--texto);
+    background:rgba(242,193,78,.08);border:1px dashed var(--linha);border-radius:12px;padding:10px 12px}
+  .dica b{color:var(--ouro)}
+  .grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+
+  .card{background:var(--card);border:1px solid var(--linha);border-radius:16px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px;position:relative}
+  .card .cab{display:flex;gap:10px;align-items:flex-start}
+  .olho{flex:0 0 34px;height:34px;color:var(--ouro)}
+  .card h3{font-family:'Cinzel',serif;font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--ouro);line-height:1.1}
+  .card .apelido{font-family:'Cinzel',serif;font-style:italic;font-size:12.5px;color:var(--texto);opacity:.85}
+  .card p{font-size:13px;color:var(--suave);line-height:1.45}
+  .selo{position:absolute;top:12px;right:12px;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--vermelho);color:#fff}
+  .selo.doce{background:#8E4FA8}
+  .card .rod{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;gap:8px}
+  .preco{font-weight:700;font-size:17px;color:var(--preto);background:var(--dourado);padding:4px 12px;border-radius:99px;white-space:nowrap}
+  .acoes{display:flex;gap:6px}
+  .btn{border:none;border-radius:10px;padding:9px 12px;font-weight:600;font-size:13px}
+  .btn-ouro{background:var(--dourado);color:var(--preto)}
+  .btn-linha{background:transparent;color:var(--ouro);border:1.5px solid var(--ouro)}
+  .btn:active{transform:scale(.96)}
+
+  footer{text-align:center;font-size:12.5px;color:var(--suave);padding:30px 14px 10px;line-height:1.8}
+  footer a{color:var(--ouro);text-decoration:none}
+
+  .barra{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:12px 14px;background:linear-gradient(transparent,rgba(11,8,6,.96) 35%)}
+  .barra button{width:100%;max-width:640px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;
+    background:var(--dourado);color:var(--preto);border:none;border-radius:14px;padding:15px 18px;font-size:16px;font-weight:700;box-shadow:0 6px 24px rgba(242,193,78,.25)}
+  .barra .qtd{background:var(--preto);color:var(--ouro);border-radius:99px;padding:2px 10px;margin-right:8px;font-size:14px}
+  .barra.vazia{display:none}
+
+  .camada{position:fixed;inset:0;z-index:40;display:none}
+  .camada.aberta{display:block}
+  .camada .fundo{position:absolute;inset:0;background:rgba(0,0,0,.65)}
+  .gaveta{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:640px;max-height:92vh;overflow-y:auto;
+    background:var(--fundo);border:1px solid var(--linha);border-bottom:none;border-radius:22px 22px 0 0;animation:sobe .25s ease}
+  @keyframes sobe{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .gaveta .topo{position:sticky;top:0;z-index:2;background:var(--fundo);padding:16px 18px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--linha)}
+  .gaveta .topo h3{font-family:'Cinzel',serif;color:var(--ouro);font-size:20px}
+  .fechar{background:rgba(255,255,255,.08);color:var(--texto);border:none;width:34px;height:34px;border-radius:50%;font-size:16px}
+  .corpo{padding:14px 18px 26px}
+
+  .sub{font-size:13px;color:var(--suave);margin-bottom:10px}
+  .lista-sabores{display:flex;flex-direction:column;gap:6px}
+  .lista-sabores button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;
+    background:var(--card);border:1px solid var(--linha);color:var(--texto);border-radius:12px;padding:10px 12px;font-size:14px}
+  .lista-sabores button small{display:block;color:var(--suave);font-size:11.5px;font-weight:400}
+  .lista-sabores button span.p{color:var(--ouro);font-weight:600;white-space:nowrap}
+
+  .item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px dashed var(--linha)}
+  .item .nome{font-size:14px;font-weight:600}
+  .item .det{font-size:12px;color:var(--suave)}
+  .ctrl{display:flex;align-items:center;gap:8px}
+  .ctrl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--linha);background:var(--card);color:var(--texto);font-size:16px;font-weight:700}
+  .totais{margin:14px 0 4px;font-size:14px}
+  .totais div{display:flex;justify-content:space-between;padding:3px 0}
+  .totais .gratis{color:var(--verde);font-weight:600}
+  .totais .total{font-size:19px;font-weight:700;color:var(--ouro);border-top:2px solid var(--ouro2);margin-top:6px;padding-top:8px}
+  label{display:block;font-size:13px;font-weight:600;margin:14px 0 6px;color:var(--ouro)}
+  input,textarea{width:100%;padding:12px;border:1.5px solid var(--linha);border-radius:10px;font-family:inherit;font-size:14px;background:var(--card);color:var(--texto)}
+  input::placeholder,textarea::placeholder{color:#7d6d55}
+  input:focus,textarea:focus{outline:none;border-color:var(--ouro)}
+  .opcoes{display:flex;gap:8px;flex-wrap:wrap}
+  .opcoes button{flex:1;min-width:90px;padding:11px 8px;border-radius:10px;border:1.5px solid var(--linha);background:var(--card);color:var(--texto);font-size:14px}
+  .opcoes button.sel{border-color:var(--ouro);background:rgba(242,193,78,.14);color:var(--ouro);font-weight:600}
+  .nota{font-size:12px;color:var(--suave);margin-top:6px}
+  .nota.pix{color:var(--verde)}
+  .pixbox{margin-top:10px;border:1.5px solid var(--verde);border-radius:12px;padding:12px;background:rgba(37,211,102,.07);font-size:12.5px;line-height:1.55}
+  .pixbox b{color:var(--ouro)}
+  .erro{color:#FF7B6B;font-size:13px;margin-top:12px;min-height:18px}
+  .whats{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin-top:6px;background:var(--verde);color:#fff;text-decoration:none;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700}
+  .whats.off{opacity:.45}
+  .pagar{background:var(--dourado);color:var(--preto)}
+  .aviso{font-size:12px;color:var(--suave);text-align:center;margin-top:8px}
+
+  /* tela de retorno do pagamento */
+  .retorno{text-align:center;padding:26px 20px 30px}
+  .retorno .grande{font-size:54px;line-height:1}
+  .retorno h3{font-family:'Cinzel',serif;color:var(--ouro);font-size:22px;margin:10px 0 6px}
+  .retorno p{font-size:14px;color:var(--suave);line-height:1.5;margin-bottom:14px}
+  .retorno .resumo{text-align:left;background:var(--card);border:1px solid var(--linha);border-radius:12px;padding:12px;font-size:13px;margin:0 0 14px;white-space:pre-line}
+  .girando{width:44px;height:44px;border:4px solid var(--linha);border-top-color:var(--ouro);border-radius:50%;margin:10px auto;animation:gira 1s linear infinite}
+  @keyframes gira{to{transform:rotate(360deg)}}
+  .secundario{display:block;width:100%;margin-top:10px;background:transparent;color:var(--ouro);border:1.5px solid var(--ouro);border-radius:12px;padding:12px;font-weight:600;font-size:14px}
+
+  .toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-130px);background:var(--dourado);color:var(--preto);font-weight:600;
+    padding:10px 18px;border-radius:99px;font-size:14px;z-index:60;transition:transform .25s;white-space:nowrap}
+  .toast.on{transform:translate(-50%,0)}
+  @media (max-width:380px){ .acoes .btn{padding:8px 9px;font-size:12px} }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="logo.webp" alt="Pizza do Faraó">
+  <div class="slogan">Sabores que só os deuses da era egípcia degustavam!</div>
+  <div class="chips">
+    <span class="chip"><i class="ponto" id="ponto"></i><span id="status">Sábado e domingo</span></span>
+    <span class="chip">📍 <b>Canavieiras - BA</b></span>
+  </div>
+</header>
+
+<section class="vantagens">
+  <div class="vant"><div class="ic">🍕</div><div class="t">Tamanho único</div><div class="d">Grande · 8 fatias</div></div>
+  <div class="vant"><div class="ic">½</div><div class="t">Escolha até</div><div class="d">2 sabores</div></div>
+  <div class="vant"><div class="ic">🛵</div><div class="t">Frete grátis</div><div class="d">no Pix!</div></div>
+</section>
+
+<section class="forno">
+  <div class="moldura">
+    <video src="forno.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="legenda"><b>Feita na hora, com ingredientes premium</b>Meia Anúbis, meia Hathor, saindo para o forno.</div>
+  </div>
+</section>
+
+<main>
+  <div class="titulo">
+    <h2>Cardápio Real</h2>
+    <p>Todas as pizzas são grandes, com 8 fatias</p>
+  </div>
+  <div class="dica">Quer dois sabores? Toque em <b>½ Meio a meio</b> e escolha o segundo. Você paga o valor do sabor <b>mais caro</b>.</div>
+  <div class="grade" id="grade"></div>
+</main>
+
+<footer>
+  <div>👑 <b style="color:var(--ouro)">Pizza do Faraó</b>, dê passagem à Pizza da Realeza!</div>
+  <div>📍 Canavieiras - BA · Sábado e domingo</div>
+  <div>WhatsApp: <a href="https://wa.me/557381062077" target="_blank" rel="noopener">(73) 98106-2077</a></div>
+  <div>E-mail: <a href="mailto:pizzadofarao26@gmail.com">pizzadofarao26@gmail.com</a></div>
+</footer>
+
+<div class="barra vazia" id="barra">
+  <button onclick="abrirCarrinho()"><span><span class="qtd" id="qtdBarra">0</span>Ver meu pedido</span><span id="totalBarra">R$ 0,00</span></button>
+</div>
+
+<!-- Escolher 2º sabor -->
+<div class="camada" id="camadaMeio">
+  <div class="fundo" onclick="fecharTudo()"></div>
+  <div class="gaveta" role="dialog" aria-label="Escolha o segundo sabor">
+    <div class="topo"><h3>Meio a meio</h3><button class="fechar" onclick="fecharTudo()" aria-label="Fechar">✕</button></div>
+    <div class="corpo">
+      <div class="sub" id="meioTexto"></div>
+      <div class="lista-sabores" id="listaSabores"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Carrinho -->
+<div class="camada" id="camadaCarrinho">
+  <div class="fundo" onclick="fecharTudo()"></div>
+  <div class="gaveta" role="dialog" aria-label="Seu pedido">
+    <div class="topo"><h3>Seu pedido</h3><button class="fechar" onclick="fecharTudo()" aria-label="Fechar">✕</button></div>
+    <div class="corpo">
+      <div id="itens"></div>
+      <div class="totais" id="totais"></div>
+
+      <label>Seu nome *</label>
+      <input id="nome" placeholder="Ex.: Maria Souza" autocomplete="name">
+
+      <label>Como quer receber?</label>
+      <div class="opcoes" id="tipo">
+        <button class="sel" data-v="Entrega">🛵 Entrega</button>
+        <button data-v="Retirada">🏃 Retirar no local</button>
+      </div>
+
+      <div id="blocoEndereco">
+        <label>Endereço completo *</label>
+        <input id="endereco" placeholder="Rua, número e bairro" autocomplete="street-address">
+        <label>Ponto de referência</label>
+        <input id="referencia" placeholder="Opcional">
+      </div>
+
+      <label>Forma de pagamento</label>
+      <div class="opcoes" id="pagamento">
+        <button class="sel" data-v="Pix">Pix</button>
+        <button data-v="Cartão">Cartão</button>
+        <button data-v="Dinheiro">Dinheiro</button>
+      </div>
+      <div class="nota" id="notaPag"></div>
+      <div class="pixbox" id="blocoPix">
+        🔒 Pagamento seguro pela <b>InfinitePay</b>, em nome de <b>Pizzas do Faraó</b>.<br>
+        <b>1.</b> Toque em <b>Pagar com Pix</b> e pague o QR Code ou o Pix copia e cola.<br>
+        <b>2.</b> Depois de pagar, toque em <b>Continuar</b> para voltar aqui.<br>
+        <b>3.</b> Com o pagamento confirmado, é só enviar o pedido no WhatsApp.
+      </div>
+      <div id="blocoTroco" style="display:none">
+        <label>Troco para quanto?</label>
+        <input id="troco" placeholder="Ex.: 100" inputmode="decimal">
+      </div>
+
+      <label>Observações</label>
+      <textarea id="obs" rows="2" placeholder="Ex.: sem cebola, caprichar no queijo..."></textarea>
+
+      <div class="erro" id="erro"></div>
+      <button class="whats pagar off" id="btnPagar" type="button" onclick="pagarPix()">💠 Pagar com Pix</button>
+      <a class="whats off" id="btnWhats" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg>
+        Enviar pedido no WhatsApp
+      </a>
+      <div class="aviso" id="avisoBotao"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Retorno do pagamento -->
+<div class="camada" id="camadaRetorno">
+  <div class="fundo"></div>
+  <div class="gaveta" role="dialog" aria-label="Pagamento">
+    <div class="retorno" id="retorno"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ CONFIGURAÇÃO ============ */
+const CONFIG = {
+  whatsapp: "557381062077",
+  freteOutros: 5.00,        // entrega com cartão ou dinheiro (Pix = grátis)
+  diasAbertos: [6, 0],      // 6 = sábado, 0 = domingo
+};
+
+// ATENÇÃO: se mudar um preço aqui, mude também em netlify/functions/criar-pagamento.mjs
+const PIZZAS = [
+  {id:"anubis",     nome:"Anúbis",      apelido:"Costela do Faraó",       ing:"Molho do Faraó, muçarela, costela bovina, queijo coalho e melaço de cana.", preco:80, selo:"Mais pedida"},
+  {id:"nefertiti",  nome:"Nefertiti",   apelido:"Ouro do Nilo",           ing:"Molho do Faraó, muçarela, parmesão, tomate seco e palmito.", preco:65},
+  {id:"sobek",      nome:"Sobek",       apelido:"Sertão Egípcio",         ing:"Molho do Faraó, muçarela, carne bovina, banana, cebola roxa e barbecue apimentado.", preco:70},
+  {id:"hatshepsut", nome:"Hatshepsut",  apelido:"Pirâmide de Gizé",       ing:"Molho do Faraó, muçarela, frango, milho e manjericão.", preco:65},
+  {id:"ramses",     nome:"Ramsés",      apelido:"Poderosa Dinastia",      ing:"Molho do Faraó, muçarela, calabresa, cream cheese e geleia de pimenta biquinho.", preco:75},
+  {id:"thoth",      nome:"Thoth",       apelido:"Cogumelo da Sabedoria",  ing:"Molho do Faraó, muçarela, champignon, parmesão e castanha de caju.", preco:75},
+  {id:"tutancamon", nome:"Tutancâmon",  apelido:"Pepperoni do Faraó",     ing:"Molho do Faraó, muçarela, pepperoni, cebola roxa e hot honey (mel apimentado).", preco:75},
+  {id:"hathor",     nome:"Hathor",      apelido:"Alegria Divina",         ing:"Leite condensado, muçarela, banana e canela.", preco:65, selo:"Doce", doce:true},
+  {id:"isis",       nome:"Ísis",        apelido:"Mediterrânea",           ing:"Molho do Faraó, muçarela, abobrinha refogada, lombo canadense e manjericão.", preco:70},
+  {id:"cleopatra",  nome:"Cleópatra",   apelido:"Parma Real",             ing:"Molho do Faraó, muçarela, calabresa, milho, tomate e cebola.", preco:65},
+  {id:"horus",      nome:"Hórus",       apelido:"Camarão do Nilo",        ing:"Molho do Faraó, muçarela, camarão, alho desidratado, catupiry e parmesão.", preco:90},
+  {id:"amon",       nome:"Ámon",        apelido:"Sabor Oculto",           ing:"Molho do Faraó, muçarela, lombo canadense, abacaxi grelhado e mel.", preco:70},
+  {id:"osiris",     nome:"Osíris",      apelido:"Marguerita do Faraó",    ing:"Molho do Faraó, muçarela, tomate, cebola e manjericão.", preco:65},
+  {id:"aquenaton",  nome:"Aquenaton",   apelido:"Tabuleta de Argila",     ing:"Molho do Faraó, muçarela, calabresa, bacon, queijo coalho, carne bovina e tomate.", preco:90},
+];
+/* ====================================== */
+
+const brl = v => v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const $ = id => document.getElementById(id);
+const pz = id => PIZZAS.find(p=>p.id===id);
+const OLHO = `<svg class="olho" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16c10-10 34-12 50-2"/><path d="M8 18c10 8 30 8 42 0-12-9-30-9-42 0z"/><circle cx="29" cy="17" r="5" fill="currentColor"/><path d="M28 24v12"/><path d="M34 23c4 6 10 8 16 6"/><path d="M4 9c8-6 22-8 30-6"/></svg>`;
+const WA_ICON = $("btnWhats").querySelector("svg").outerHTML;
+
+let carrinho = [];
+let tipo = "Entrega", pagamento = "Pix";
+
+/* armazenamento seguro (pode não existir em alguns navegadores) */
+const guardar = (k,v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} };
+const ler = k => { try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } };
+
+(function(){
+  const aberto = CONFIG.diasAbertos.includes(new Date().getDay());
+  $("ponto").classList.toggle("on", aberto);
+  $("status").textContent = aberto ? "Aberto hoje · sábado e domingo" : "Abrimos sábado e domingo";
+})();
+
+function render(){
+  $("grade").innerHTML = PIZZAS.map(p=>`
+    <div class="card">
+      ${p.selo?`<span class="selo ${p.doce?'doce':''}">${p.selo}</span>`:""}
+      <div class="cab">${OLHO}<div><h3>${p.nome}</h3><div class="apelido">${p.apelido}</div></div></div>
+      <p>${p.ing}</p>
+      <div class="rod">
+        <span class="preco">${brl(p.preco)}</span>
+        <div class="acoes">
+          <button class="btn btn-linha" onclick="abrirMeio('${p.id}')">½ Meio a meio</button>
+          <button class="btn btn-ouro" onclick="adicionar(['${p.id}'])">+ Inteira</button>
+        </div>
+      </div>
+    </div>`).join("");
+}
+
+function abrirMeio(id){
+  const p = pz(id);
+  $("meioTexto").innerHTML = `Metade <b style="color:var(--ouro)">${p.nome}</b>. Agora escolha a outra metade:<br><small>No meio a meio, vale o preço do sabor mais caro.</small>`;
+  $("listaSabores").innerHTML = PIZZAS.filter(x=>x.id!==id).map(x=>
+    `<button onclick="adicionar(['${id}','${x.id}'])"><div>${x.nome} <small>${x.apelido}</small></div><span class="p">＋</span></button>`
+  ).join("");
+  $("camadaMeio").classList.add("aberta");
+}
+
+function adicionar(sabores){
+  const ord = [...sabores].sort();
+  const chave = ord.join("+");
+  const preco = Math.max(...sabores.map(s=>pz(s).preco));
+  const ex = carrinho.find(x=>x.chave===chave);
+  ex ? ex.qtd++ : carrinho.push({chave, sabores:ord, preco, qtd:1});
+  fecharTudo(); atualizar();
+  toast("✓ " + nomeItem(ord) + " adicionada");
+}
+const nomeItem = s => s.length===2 ? `½ ${pz(s[0]).nome} + ½ ${pz(s[1]).nome}` : pz(s[0]).nome;
+
+function mudar(chave,d){
+  const it = carrinho.find(x=>x.chave===chave); if(!it) return;
+  it.qtd += d; if(it.qtd<=0) carrinho = carrinho.filter(x=>x!==it);
+  atualizar(); if(!carrinho.length) fecharTudo();
+}
+const subtotal = () => carrinho.reduce((s,x)=>s+x.preco*x.qtd,0);
+const frete = () => (tipo==="Entrega" && pagamento!=="Pix") ? CONFIG.freteOutros : 0;
+
+function atualizar(){
+  const qtd = carrinho.reduce((s,x)=>s+x.qtd,0);
+  $("barra").classList.toggle("vazia", qtd===0);
+  $("qtdBarra").textContent = qtd;
+  $("totalBarra").textContent = brl(subtotal()+frete());
+  $("itens").innerHTML = carrinho.map(x=>`
+    <div class="item"><div><div class="nome">${nomeItem(x.sabores)}</div><div class="det">Grande · ${brl(x.preco)}</div></div>
+      <div class="ctrl"><button onclick="mudar('${x.chave}',-1)" aria-label="Diminuir">−</button><b>${x.qtd}</b><button onclick="mudar('${x.chave}',1)" aria-label="Aumentar">+</button></div></div>`).join("");
+  $("totais").innerHTML = `
+    <div><span>Subtotal</span><span>${brl(subtotal())}</span></div>
+    ${tipo==="Entrega"?`<div><span>Entrega</span>${frete()?`<span>${brl(frete())}</span>`:`<span class="gratis">Grátis no Pix</span>`}</div>`:""}
+    <div class="total"><span>Total</span><span>${brl(subtotal()+frete())}</span></div>`;
+  const n = $("notaPag");
+  if(tipo==="Entrega"){
+    n.className = "nota" + (pagamento==="Pix"?" pix":"");
+    n.textContent = pagamento==="Pix" ? "✓ Pagando no Pix a entrega é grátis!" : `Entrega com ${pagamento.toLowerCase()}: ${brl(CONFIG.freteOutros)}. No Pix é grátis.`;
+  } else n.textContent = "";
+  $("blocoTroco").style.display = pagamento==="Dinheiro" ? "" : "none";
+  $("blocoPix").style.display = pagamento==="Pix" ? "" : "none";
+  $("btnPagar").style.display = pagamento==="Pix" ? "" : "none";
+  $("btnWhats").style.display = pagamento==="Pix" ? "none" : "";
+  $("avisoBotao").textContent = pagamento==="Pix"
+    ? "Você vai para a tela segura da InfinitePay e depois volta para enviar o pedido."
+    : "O WhatsApp abre com o pedido já escrito. É só tocar em enviar.";
+  montarLink();
+}
+
+const val = id => $(id).value.trim();
+function faltando(){
+  return !carrinho.length ? "Adicione pelo menos uma pizza." :
+         !val("nome") ? "Preencha seu nome." :
+         (tipo==="Entrega" && !val("endereco")) ? "Preencha o endereço de entrega." : "";
+}
+
+/* monta o texto do pedido para o WhatsApp */
+function textoPedido(p, pix){
+  let m = `👑 *NOVO PEDIDO · PIZZA DO FARAÓ*\n\n`;
+  m += `*Cliente:* ${p.nome}\n\n*Pizzas (grandes, 8 fatias):*\n`;
+  p.itens.forEach(x => { m += `• ${x.qtd}x ${nomeItem(x.sabores)} · ${brl(x.preco*x.qtd)}\n`; });
+  m += `\nSubtotal: ${brl(p.subtotal)}\n`;
+  if(p.tipo==="Entrega") m += `Entrega: ${p.frete?brl(p.frete):"Grátis (Pix)"}\n`;
+  m += `*TOTAL: ${brl(p.subtotal+p.frete)}*\n\n`;
+  m += `*Recebimento:* ${p.tipo==="Entrega"?"Entrega":"Retirar no local"}\n`;
+  if(p.tipo==="Entrega"){ m += `*Endereço:* ${p.endereco}\n`; if(p.referencia) m += `*Referência:* ${p.referencia}\n`; }
+  m += `*Pagamento:* ${p.pagamento}${p.pagamento==="Dinheiro"&&p.troco?` (troco para R$ ${p.troco})`:""}\n`;
+  if(pix){
+    m += `\n✅ *PIX PAGO E CONFIRMADO PELA INFINITEPAY*\n`;
+    m += `Pedido: ${pix.order_nsu}\nTransação: ${pix.transaction_nsu}\n`;
+    if(pix.receipt_url) m += `Comprovante: ${pix.receipt_url}\n`;
+  }
+  if(p.obs) m += `\n*Observações:* ${p.obs}\n`;
+  return m;
+}
+const linkWhats = texto => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`;
+
+function pedidoAtual(){
+  return { nome:val("nome"), tipo, endereco:val("endereco"), referencia:val("referencia"),
+    pagamento, troco:val("troco"), obs:val("obs"),
+    itens: carrinho.map(x=>({sabores:x.sabores, preco:x.preco, qtd:x.qtd})),
+    subtotal: subtotal(), frete: frete() };
+}
+
+function montarLink(){
+  const falta = faltando();
+  $("erro").textContent = falta;
+  $("btnPagar").classList.toggle("off", !!falta);
+  const btn = $("btnWhats");
+  btn.classList.toggle("off", !!falta);
+  if(falta || pagamento==="Pix"){ btn.removeAttribute("href"); return; }
+  btn.href = linkWhats(textoPedido(pedidoAtual(), null));
+}
+
+/* ---------- Pix pela InfinitePay ---------- */
+async function pagarPix(){
+  const falta = faltando();
+  if(falta){ $("erro").textContent = falta; return; }
+  const b = $("btnPagar");
+  b.disabled = true; b.textContent = "Gerando pagamento...";
+  const pedido = pedidoAtual();
+  try{
+    const r = await fetch("/.netlify/functions/criar-pagamento", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ nome: pedido.nome, itens: pedido.itens.map(x=>({sabores:x.sabores, qtd:x.qtd})) })
+    });
+    const d = await r.json();
+    if(!r.ok || !d.url) throw new Error(d.erro || "erro");
+    pedido.order_nsu = d.order_nsu;
+    pedido.totalCentavos = d.total;
+    guardar("farao_pedido_" + d.order_nsu, pedido);
+    guardar("farao_ultimo", d.order_nsu);
+    window.location.href = d.url;
+  }catch(e){
+    $("erro").textContent = "Não conseguimos abrir o pagamento agora. Tente de novo ou escolha outra forma de pagamento.";
+    b.disabled = false; b.textContent = "💠 Pagar com Pix";
+  }
+}
+
+/* quando o cliente volta da InfinitePay */
+async function verificarRetorno(){
+  const q = new URLSearchParams(location.search);
+  const order_nsu = q.get("order_nsu"), transaction_nsu = q.get("transaction_nsu"), slug = q.get("slug");
+  if(!order_nsu) return;
+  const receipt_url = q.get("receipt_url") || "";
+  const pedido = ler("farao_pedido_" + order_nsu);
+  const tela = $("retorno");
+  $("camadaRetorno").classList.add("aberta");
+  tela.innerHTML = `<div class="girando"></div><h3>Confirmando seu Pix...</h3><p>Só um instante, estamos conferindo com a InfinitePay.</p>`;
+
+  let d = {};
+  try{
+    const r = await fetch("/.netlify/functions/verificar-pagamento", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ order_nsu, transaction_nsu, slug })
+    });
+    d = await r.json();
+  }catch(e){ d = { pago:false, erro:"conexao" }; }
+
+  const valorOk = !pedido || !pedido.totalCentavos || d.valor >= pedido.totalCentavos;
+  if(d.pago && valorOk){
+    const pix = { order_nsu, transaction_nsu, receipt_url };
+    const texto = pedido
+      ? textoPedido(pedido, pix)
+      : `👑 *PEDIDO · PIZZA DO FARAÓ*\n\n✅ *PIX PAGO E CONFIRMADO PELA INFINITEPAY*\nValor: ${brl((d.valor||0)/100)}\nPedido: ${order_nsu}\nTransação: ${transaction_nsu}\n${receipt_url?`Comprovante: ${receipt_url}\n`:""}\n_Meus dados do pedido:_ `;
+    if(pedido){ pedido.pago = true; guardar("farao_pedido_" + order_nsu, pedido); }
+    tela.innerHTML = `
+      <div class="grande">✅</div>
+      <h3>Pix confirmado!</h3>
+      <p>Pagamento de <b style="color:var(--ouro)">${brl((d.valor||0)/100)}</b> recebido. Agora envie o pedido para a pizzaria começar a preparar.</p>
+      ${pedido?`<div class="resumo">${pedido.itens.map(x=>`${x.qtd}x ${nomeItem(x.sabores)}`).join("\n")}</div>`:`<p>Escreva no WhatsApp seu nome, as pizzas e o endereço.</p>`}
+      <a class="whats" href="${linkWhats(texto)}" target="_blank" rel="noopener">${WA_ICON} Enviar pedido no WhatsApp</a>
+      <button class="secundario" onclick="limparRetorno()">Voltar ao cardápio</button>`;
+  } else {
+    tela.innerHTML = `
+      <div class="grande">⏳</div>
+      <h3>Pagamento ainda não confirmado</h3>
+      <p>Se você já pagou, espere alguns segundos e toque em <b>Verificar de novo</b>. Se o problema continuar, fale com a gente no WhatsApp.</p>
+      <button class="whats pagar" onclick="verificarRetorno()">🔄 Verificar de novo</button>
+      <a class="secundario" style="text-decoration:none" href="${linkWhats(`Olá! Fiz um pedido no site e o Pix não confirmou. Pedido: ${order_nsu}`)}" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      <button class="secundario" onclick="limparRetorno()">Voltar ao cardápio</button>`;
+  }
+}
+function limparRetorno(){
+  history.replaceState(null, "", location.pathname);
+  $("camadaRetorno").classList.remove("aberta");
+}
+
+function abrirCarrinho(){ $("camadaCarrinho").classList.add("aberta"); atualizar(); }
+function fecharTudo(){ ["camadaMeio","camadaCarrinho"].forEach(id=>$(id).classList.remove("aberta")); }
+let tt; function toast(t){ const e=$("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>e.classList.remove("on"),1700); }
+
+function grupo(idGrupo, cb){
+  document.querySelectorAll(`#${idGrupo} button`).forEach(b => b.onclick = () => {
+    document.querySelectorAll(`#${idGrupo} button`).forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); cb(b.dataset.v); atualizar();
+  });
+}
+grupo("tipo", v => { tipo=v; $("blocoEndereco").style.display = v==="Entrega" ? "" : "none"; });
+grupo("pagamento", v => { pagamento=v; });
+["nome","endereco","referencia","troco","obs"].forEach(id => $(id).addEventListener("input", montarLink));
+$("btnWhats").addEventListener("click", e => { if(!e.currentTarget.getAttribute("href")) e.preventDefault(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape") fecharTudo(); });
+
+render(); atualizar(); verificarRetorno();
+</script>
+</body>
+</html>
